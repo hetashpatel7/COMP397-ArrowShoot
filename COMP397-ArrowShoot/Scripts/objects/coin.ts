@@ -7,7 +7,7 @@
             super(imageString);
 
             this.name = "coin";
-            this.sound = "thunder";
+            this.sound = "";
 
             this.reset();
         }

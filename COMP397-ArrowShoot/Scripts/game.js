@@ -17,11 +17,13 @@
 var canvas = document.getElementById("canvas");
 var stage;
 var stats;
+var logo;
 var assets;
 var manifest = [
     { id: "road", src: "assets/images/road.png" },
     { id: "road2", src: "assets/images/road2.jpg" },
     { id: "road3", src: "assets/images/road3.png" },
+    { id: "logo", src: "assets/images/logo.png" },
     { id: "hero", src: "assets/images/hero.png" },
     { id: "hero2", src: "assets/images/hero2.png" },
     { id: "hero3", src: "assets/images/hero3.png" },
@@ -87,11 +89,16 @@ function setupStats() {
     stats.setMode(0); // set to fps
     // align bottom-right
     stats.domElement.style.position = 'absolute';
-    stats.domElement.style.left = '650px';
+    stats.domElement.style.left = '1600px';
     stats.domElement.style.top = '10px';
     document.body.appendChild(stats.domElement);
 }
 function callChange(clicked) {
+    createjs.Sound.stop();
+    this.sound = "engine";
+    createjs.Sound.play(this.sound);
+    this.sound = "yay";
+    createjs.Sound.play(this.sound);
     scoreboard.lives -= 1;
     isClicked = "true";
 }
@@ -102,11 +109,13 @@ function gameLoop() {
     hero.update(started, isClicked);
     if (scoreboard.score > 700 && level == 2)
         coin.update();
-    if (scoreboard.score > 1800 && level == 3)
+    if (scoreboard.score > 1400 && level == 3)
         bomb.update();
     random = Math.floor(Math.random() * 6 + 1);
     console.log("random is" + random);
     // coin.update();
+    if (scoreboard.lives == 0)
+        endScreen();
     for (var car = 0; car < 3; car++) {
         cars[car].update();
         collision.check(cars[car]);
@@ -120,6 +129,9 @@ function gameLoop() {
 //Our start game screen function
 function startScreen() {
     isClicked = "false";
+    createjs.Sound.stop();
+    this.sound = "yay";
+    createjs.Sound.play(this.sound);
     road = new objects.road(assets.getResult("road"));
     stage.addChild(road);
     start = new createjs.Bitmap(assets.getResult("start"));
@@ -130,6 +142,10 @@ function startScreen() {
     how.x = 180;
     how.y = 350;
     stage.addChild(how);
+    logo = new createjs.Bitmap(assets.getResult("logo"));
+    logo.x = 700;
+    logo.y = 170;
+    stage.addChild(logo);
     start.on("click", startButtonClicked);
     start.on("mouseover", startButtonOver);
     start.on("mouseout", startButtonOut);
@@ -169,6 +185,9 @@ function startButtonOut() {
 }
 //display instructions when user clicks on how to play button
 function howButtonClicked() {
+    createjs.Sound.stop();
+    this.sound = "yay";
+    createjs.Sound.play(this.sound);
     stage.removeAllChildren();
     road = new objects.road(assets.getResult("road"));
     stage.addChild(road);
@@ -198,6 +217,9 @@ function againButtonOut() {
 }
 // Our end screen(game over)Game Function
 function endScreen() {
+    createjs.Sound.stop();
+    this.sound = "yay";
+    createjs.Sound.play(this.sound);
     stage.removeAllChildren();
     road = new objects.road(assets.getResult("road"));
     stage.addChild(road);
@@ -213,7 +235,7 @@ function endScreen() {
     again.x = 150;
     again.y = 250;
     stage.addChild(again);
-    again.on("click", startButtonClicked);
+    again.on("click", startScreen);
     again.on("mouseover", againButtonOver);
     again.on("mouseout", againButtonOut);
 }

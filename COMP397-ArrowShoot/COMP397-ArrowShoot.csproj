@@ -59,9 +59,11 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\audio\engine.wav" />
     <Content Include="assets\images\bomb.png" />
     <Content Include="assets\images\hero2.png" />
     <Content Include="assets\images\hero3.png" />
+    <Content Include="assets\images\logo.png" />
     <Content Include="assets\images\road.png" />
     <Content Include="assets\images\road2.jpg" />
     <Content Include="assets\images\road3.png" />

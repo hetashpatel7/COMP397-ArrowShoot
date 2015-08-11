@@ -38,7 +38,7 @@ var managers;
                 if (scoreboard.score == 700 && scoreboard.lives != 0) {
                     secondLevel();
                 }
-                if (scoreboard.score == 1800 && scoreboard.lives != 0) {
+                if (scoreboard.score == 1400 && scoreboard.lives != 0) {
                     thirdLevel();
                 }
                 if (scoreboard.lives == 0)

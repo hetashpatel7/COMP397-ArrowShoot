@@ -7,7 +7,7 @@
             super(imageString);
 
             this.name = "bomb";
-            this.sound = "thunder";
+            this.sound = "";
 
             this.reset();
         }

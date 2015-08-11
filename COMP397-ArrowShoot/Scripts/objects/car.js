@@ -13,7 +13,7 @@ var objects;
         function car(imageString) {
             _super.call(this, imageString);
             this.name = "car";
-            this.sound = "thunder";
+            this.sound = "";
             this.reset();
         }
         // PRIVATE METHODS ++++++++++++++++++++++++++++++

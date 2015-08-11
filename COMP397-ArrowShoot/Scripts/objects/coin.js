@@ -13,7 +13,7 @@ var objects;
         function coin(imageString) {
             _super.call(this, imageString);
             this.name = "coin";
-            this.sound = "thunder";
+            this.sound = "";
             this.reset();
         }
         // PRIVATE METHODS ++++++++++++++++++++++++++++++

@@ -46,7 +46,7 @@
                     secondLevel();
                      
                 }
-                if (scoreboard.score == 1800 && scoreboard.lives != 0)
+                if (scoreboard.score == 1400 && scoreboard.lives != 0)
                 {
                 thirdLevel();
                      
