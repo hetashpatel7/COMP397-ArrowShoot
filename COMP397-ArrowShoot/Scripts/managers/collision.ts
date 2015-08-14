@@ -11,17 +11,17 @@
             var p1: createjs.Point = new createjs.Point();
             var p2: createjs.Point = new createjs.Point();
           
-            p1.x = hero.x;
-            p1.y = hero.y;
+            p1.x = Arrow.x;
+            p1.y = Arrow.y;
 
             p2.x = gameObject.x;
             p2.y = gameObject.y;
 
 
-            if (utility.distance(p1, p2) < ((hero.height * 0.5) + (gameObject.height * 0.5))) {
+            if (utility.distance(p1, p2) < ((Arrow.height * 0.5) + (gameObject.height * 0.5))) {
                 if (gameObject.isColliding == false) {
                     createjs.Sound.play(gameObject.sound);
-                    if (gameObject.name == "car") {
+                    if (gameObject.name == "balloon") {//if arrow hits the balloon then remove reset balloon
                        // stage.removeChild(gameObject);
                         stage.removeChild(gameObject);
                         gameObject.y = -400;
@@ -31,8 +31,9 @@
                       //  scoreboard.obj -= 1;
                                                 stage.update();
                     }
-                    if (gameObject.name == "coin")
-                    {
+                    if (gameObject.name == "Red")
+                    {//if arrow hits the Red balloon then remove reset balloon
+                      
 
                         stage.removeChild(gameObject);
                         gameObject.y = -600;
@@ -43,18 +44,18 @@
                     //   resetArrow();
                         stage.update();
                     }
-                    if (gameObject.name == "bomb") {
+                    if (gameObject.name == "bomb") {//If arrow hits the bomb then go to game over screen
                                 endScreen();
                      stage.update();
                     }
             
                 }
                 gameObject.isColliding = true;
-                if (scoreboard.score == 700 && scoreboard.lives != 0) {
+                if (scoreboard.score == 700 && scoreboard.lives != 0) {//call second level function 
                     secondLevel();
                      
                 }
-                if (scoreboard.score == 1400 && scoreboard.lives != 0)
+                if (scoreboard.score == 1400 && scoreboard.lives != 0)//call 3rd level function
                 {
                 thirdLevel();
                      

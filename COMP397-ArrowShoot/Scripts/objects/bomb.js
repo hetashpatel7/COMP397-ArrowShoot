@@ -6,7 +6,7 @@ var __extends = this.__extends || function (d, b) {
 };
 var objects;
 (function (objects) {
-    // Cloud Class ++++++++++++++++++++++++++++++++++++++
+    // bomb Class ++++++++++++++++++++++++++++++++++++++
     var bomb = (function (_super) {
         __extends(bomb, _super);
         // CONSTRUCTOR ++++++++++++++++++++++++++++++++++
@@ -18,21 +18,21 @@ var objects;
         }
         // PRIVATE METHODS ++++++++++++++++++++++++++++++
         bomb.prototype.checkBounds = function () {
-            // check if cloud has left screen
+            // check if bomb has left screen
             if (this.y > 600 + this.height) {
                 this.reset();
             }
         };
         bomb.prototype.reset = function () {
-            this.x = Math.floor(Math.random() * 810) + 750; // start cloud at random location
-            this.y = -this.height; // start cloud off stage
+            this.x = Math.floor(Math.random() * 810) + 750; // start bomb at random location
+            this.y = -this.height; // start bomb off stage
             this.dy = Math.floor(Math.random() * 3) + 5;
             this.dx = Math.floor(Math.random() * 4) - 2;
         };
         // PUBLIC METHODS +++++++++++++++++++++++++++++++
         bomb.prototype.update = function () {
-            this.y += this.dy; // moves cloud down the stage
-            this.x -= 1; // drifts cloud right and left
+            this.y += this.dy; // moves bomb down the stage
+            this.x -= 1; // drifts bomb right and left
             this.checkBounds();
         };
         return bomb;

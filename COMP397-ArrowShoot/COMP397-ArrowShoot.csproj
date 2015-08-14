@@ -60,12 +60,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\audio\engine.wav" />
+    <Content Include="assets\images\Arrow.png" />
+    <Content Include="assets\images\Arrow2.png" />
+    <Content Include="assets\images\Arrow3.png" />
+    <Content Include="assets\images\balloon.png" />
     <Content Include="assets\images\bomb.png" />
     <Content Include="assets\images\bowArrow.png" />
-    <Content Include="assets\images\hero2.png" />
-    <Content Include="assets\images\hero3.png" />
     <Content Include="assets\images\howToPlay.PNG" />
     <Content Include="assets\images\logo.png" />
+    <Content Include="assets\images\Red.png" />
     <Content Include="assets\images\road.png" />
     <Content Include="assets\images\road2.jpg" />
     <Content Include="assets\images\road2.png" />
@@ -77,10 +80,7 @@
     <Content Include="assets\images\New Microsoft PowerPoint Presentation.pptx" />
     <Content Include="Scripts\game.js.map" />
     <Content Include="Scripts\managers\collision.js.map" />
-    <Content Include="Scripts\objects\car.js.map" />
-    <Content Include="Scripts\objects\coin.js.map" />
     <Content Include="Scripts\objects\gameobject.js.map" />
-    <Content Include="Scripts\objects\hero.js.map" />
     <Content Include="Scripts\objects\road.js.map" />
     <Content Include="Scripts\objects\scoreboard.js.map" />
     <Content Include="Scripts\utility\utility.js.map" />
@@ -94,14 +94,7 @@
   <ItemGroup>
     <Content Include="assets\audio\thunder %281%29.wav" />
     <Content Include="assets\images\again.png" />
-    <Content Include="assets\images\blasted.png" />
     <Content Include="assets\images\bow.png" />
-    <Content Include="assets\images\Capture.PNG" />
-    <Content Include="assets\images\Capture1.PNG" />
-    <Content Include="assets\images\Capture2.PNG" />
-    <Content Include="assets\images\car.png" />
-    <Content Include="assets\images\coin.png" />
-    <Content Include="assets\images\hero.png" />
     <Content Include="assets\images\how.png" />
     <Content Include="assets\images\start.png" />
     <Content Include="css\main.css" />
@@ -113,10 +106,7 @@
     <Content Include="Scripts\lib\Stats.js" />
     <Content Include="Scripts\lib\tweenjs-0.6.0.min.js" />
     <Content Include="Scripts\managers\collision.js" />
-    <Content Include="Scripts\objects\car.js" />
-    <Content Include="Scripts\objects\coin.js" />
     <Content Include="Scripts\objects\gameobject.js" />
-    <Content Include="Scripts\objects\hero.js" />
     <Content Include="Scripts\objects\road.js" />
     <Content Include="Scripts\objects\scoreboard.js" />
     <Content Include="Scripts\utility\utility.js" />
@@ -131,13 +121,12 @@
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\game.ts" />
     <TypeScriptCompile Include="Scripts\managers\collision.ts" />
-    <TypeScriptCompile Include="Scripts\objects\arrow.ts" />
+    <TypeScriptCompile Include="Scripts\objects\Arrow.ts" />
+    <TypeScriptCompile Include="Scripts\objects\balloon.ts" />
     <TypeScriptCompile Include="Scripts\objects\bomb.ts" />
     <TypeScriptCompile Include="Scripts\objects\bowArrow.ts" />
-    <TypeScriptCompile Include="Scripts\objects\car.ts" />
-    <TypeScriptCompile Include="Scripts\objects\coin.ts" />
     <TypeScriptCompile Include="Scripts\objects\gameobject.ts" />
-    <TypeScriptCompile Include="Scripts\objects\hero.ts" />
+    <TypeScriptCompile Include="Scripts\objects\Red.ts" />
     <TypeScriptCompile Include="Scripts\objects\road.ts" />
     <TypeScriptCompile Include="Scripts\objects\scoreboard.ts" />
     <TypeScriptCompile Include="Scripts\typings\createjs-lib\createjs-lib.d.ts" />

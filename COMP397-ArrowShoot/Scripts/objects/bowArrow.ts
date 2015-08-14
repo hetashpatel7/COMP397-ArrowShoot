@@ -1,5 +1,5 @@
 ﻿module objects {
-    // hero Class ++++++++++++++++++++++++++++++++++++++
+    // bowArrow Class ++++++++++++++++++++++++++++++++++++++
    
     export class bowArrow extends objects.GameObject {
          
@@ -17,7 +17,7 @@
         // PUBLIC METHODS +++++++++++++++++++++++++++++++
         public update(): void {
 
-            this.y = stage.mouseY; // position hero under mouse
+            this.y = stage.mouseY; // position Arrow under mouse
             
         }
     }

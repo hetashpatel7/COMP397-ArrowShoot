@@ -6,7 +6,7 @@ var __extends = this.__extends || function (d, b) {
 };
 var objects;
 (function (objects) {
-    // car Class ++++++++++++++++++++++++++++++++++++++
+    // balloon Class ++++++++++++++++++++++++++++++++++++++
     var GameObject = (function (_super) {
         __extends(GameObject, _super);
         // CONSTRUCTOR ++++++++++++++++++++++++++++++++++

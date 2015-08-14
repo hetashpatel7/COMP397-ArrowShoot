@@ -9,14 +9,14 @@ var managers;
         Collision.prototype.check = function (gameObject) {
             var p1 = new createjs.Point();
             var p2 = new createjs.Point();
-            p1.x = hero.x;
-            p1.y = hero.y;
+            p1.x = Arrow.x;
+            p1.y = Arrow.y;
             p2.x = gameObject.x;
             p2.y = gameObject.y;
-            if (utility.distance(p1, p2) < ((hero.height * 0.5) + (gameObject.height * 0.5))) {
+            if (utility.distance(p1, p2) < ((Arrow.height * 0.5) + (gameObject.height * 0.5))) {
                 if (gameObject.isColliding == false) {
                     createjs.Sound.play(gameObject.sound);
-                    if (gameObject.name == "car") {
+                    if (gameObject.name == "balloon") {
                         // stage.removeChild(gameObject);
                         stage.removeChild(gameObject);
                         gameObject.y = -400;
@@ -25,7 +25,7 @@ var managers;
                         //  scoreboard.obj -= 1;
                         stage.update();
                     }
-                    if (gameObject.name == "coin") {
+                    if (gameObject.name == "Red") {
                         stage.removeChild(gameObject);
                         gameObject.y = -600;
                         stage.addChild(gameObject);

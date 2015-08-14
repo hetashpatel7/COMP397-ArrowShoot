@@ -6,33 +6,34 @@ var __extends = this.__extends || function (d, b) {
 };
 var objects;
 (function (objects) {
-    // Cloud Class ++++++++++++++++++++++++++++++++++++++
+    // Balloon Class ++++++++++++++++++++++++++++++++++++++
     var balloon = (function (_super) {
         __extends(balloon, _super);
         // CONSTRUCTOR ++++++++++++++++++++++++++++++++++
         function balloon(imageString) {
             _super.call(this, imageString);
             this.name = "balloon";
-            this.sound = "thunder";
+            this.sound = "";
             this.reset();
         }
         // PRIVATE METHODS ++++++++++++++++++++++++++++++
         balloon.prototype.checkBounds = function () {
             // check if cloud has left screen
             if (this.y > 600 + this.height) {
+                scoreboard.lives -= 1;
                 this.reset();
             }
         };
         balloon.prototype.reset = function () {
-            this.x = Math.floor(Math.random() * 900) + 920; // start cloud at random location
+            this.x = Math.floor(Math.random() * 810) + 750; // start cloud at random location
             this.y = -this.height; // start cloud off stage
-            this.dy = Math.floor(Math.random() * 5) + 5;
-            this.dx = Math.floor(Math.random() * 2) - 1;
+            this.dy = Math.floor(Math.random() * 3) + 5;
+            this.dx = Math.floor(Math.random() * 4) - 2;
         };
         // PUBLIC METHODS +++++++++++++++++++++++++++++++
         balloon.prototype.update = function () {
             this.y += this.dy; // moves cloud down the stage
-            this.x += this.dx; // drifts cloud right and left
+            this.x -= 1; // drifts cloud right and left
             this.checkBounds();
         };
         return balloon;

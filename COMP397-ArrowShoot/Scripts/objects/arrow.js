@@ -6,30 +6,32 @@ var __extends = this.__extends || function (d, b) {
 };
 var objects;
 (function (objects) {
-    // hero Class ++++++++++++++++++++++++++++++++++++++
-    var arrow = (function (_super) {
-        __extends(arrow, _super);
+    // Arrow Class ++++++++++++++++++++++++++++++++++++++
+    var Arrow = (function (_super) {
+        __extends(Arrow, _super);
         // CONSTRUCTOR ++++++++++++++++++++++++++++++++++
-        function arrow(imageString) {
+        function Arrow(imageString) {
             _super.call(this, imageString);
-            this.sound = "engine";
-            this.x = 50;
-            this.y = 50;
-            createjs.Sound.play(this.sound, { "loop": -1 });
+            this.x = 153;
         }
-        arrow.prototype.changeClick = function () {
+        Arrow.prototype.changeClick = function () {
             this.x += 500;
         };
         // PUBLIC METHODS +++++++++++++++++++++++++++++++
-        arrow.prototype.update = function (started, isClicked) {
-            this.y = stage.mouseY; // position hero under mouse
+        Arrow.prototype.update = function (started, isClicked, bowY, bowHeight) {
+            this.y = stage.mouseY;
             if (started == "true") {
-                if (isClicked == "true")
+                if (isClicked == "true") {
                     this.x += 10;
+                    if (this.x > 1454) {
+                        this.x = 153;
+                        resetArrow();
+                    }
+                }
             }
         };
-        return arrow;
+        return Arrow;
     })(objects.GameObject);
-    objects.arrow = arrow;
+    objects.Arrow = Arrow;
 })(objects || (objects = {}));
 //# sourceMappingURL=arrow.js.map

@@ -1,12 +1,12 @@
 ﻿module objects {
-    // Cloud Class ++++++++++++++++++++++++++++++++++++++
-    export class coin extends objects.GameObject {
- 
+    // Balloon Class ++++++++++++++++++++++++++++++++++++++
+    export class balloon extends objects.GameObject {
+        gameObject1: objects.GameObject;
         // CONSTRUCTOR ++++++++++++++++++++++++++++++++++
         constructor(imageString: string) {
             super(imageString);
 
-            this.name = "coin";
+            this.name = "balloon";
             this.sound = "";
 
             this.reset();
@@ -17,6 +17,7 @@
 
             // check if cloud has left screen
             if (this.y > 600 + this.height) {
+                scoreboard.lives -= 1;
                 this.reset();
             }
         }

@@ -1,5 +1,5 @@
 ﻿module objects {
-    // car Class ++++++++++++++++++++++++++++++++++++++
+    // balloon Class ++++++++++++++++++++++++++++++++++++++
     export class GameObject extends createjs.Bitmap {
         // PUBLIC PROPERTIES ++++++++++++++++++++++++++++
         public width: number;

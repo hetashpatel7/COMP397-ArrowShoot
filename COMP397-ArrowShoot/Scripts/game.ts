@@ -3,6 +3,7 @@
 /// <reference path="typings/tweenjs/tweenjs.d.ts" />
 /// <reference path="typings/soundjs/soundjs.d.ts" />
 /// <reference path="typings/preloadjs/preloadjs.d.ts" />
+/// <reference path="objects/arrow.ts" />
 
 /// <reference path="utility/utility.ts" />
 /// <reference path="objects/bomb.ts" />
@@ -10,9 +11,9 @@
 
 /// <reference path="objects/gameobject.ts" />
 /// <reference path="objects/road.ts" />
-/// <reference path="objects/hero.ts" />
-/// <reference path="objects/coin.ts" />
-/// <reference path="objects/car.ts" />
+
+/// <reference path="objects/Red.ts" />
+/// <reference path="objects/balloon.ts" />
 
 /// <reference path="objects/scoreboard.ts" />
 /// <reference path="objects/arrow.ts" />
@@ -38,19 +39,19 @@ var manifest = [
     { id: "bow", src: "assets/images/bow.png" },
     { id: "howToPlay", src: "assets/images/howToPlay.png" },
   
-    { id: "hero", src: "assets/images/hero.png" },
-    { id: "hero2", src: "assets/images/hero2.png" },
-    { id: "hero3", src: "assets/images/hero3.png" },
+    { id: "Arrow", src: "assets/images/Arrow.png" },
+    { id: "Arrow2", src: "assets/images/Arrow2.png" },
+    { id: "Arrow3", src: "assets/images/Arrow3.png" },
   
 
-    { id: "coin", src: "assets/images/coin.png" },
-    { id: "car", src: "assets/images/car.png" },
+    { id: "Red", src: "assets/images/Red.png" },
+    { id: "balloon", src: "assets/images/balloon.png" },
     { id: "yay", src: "assets/audio/yay.ogg" },
     { id: "thunder", src: "assets/audio/thunder.ogg" },
     { id: "engine", src: "assets/audio/engine.ogg" },
     { id: "start", src: "assets/images/start.png" },  
     { id: "again", src: "assets/images/again.png" } ,
-    { id: "arrow", src: "assets/images/hero.png" },
+    { id: "arrow", src: "assets/images/Arrow.png" },
     { id: "blasted", src: "assets/images/blasted.png" },
     { id: "bomb", src: "assets/images/bomb.png" },
     { id: "bowArrow", src: "assets/images/bowArrow.png" },
@@ -61,17 +62,17 @@ var manifest = [
 
 // Game Variables
 var road: objects.road;
-var hero: objects.hero;
-var arrow: objects.arrow;
+var Arrow: objects.Arrow;
+
 var road2: objects.road;
 var road3: objects.road;
-var coin: objects.coin;
+var Red: objects.Red;
 var bomb: objects.bomb;
 
 var random;
 
 
-var cars: objects.car[] = [];
+var balloons: objects.balloon[] = [];
 var start: createjs.Bitmap;
 var again: createjs.Bitmap;
 var how: createjs.Bitmap;
@@ -125,7 +126,7 @@ function setupStats() {
 
     document.body.appendChild(stats.domElement);
 }
-function callChange(clicked: string) {
+function callChange(clicked: string) {//function called when player hits spacebar key
     createjs.Sound.stop();
     this.sound = "engine";
     createjs.Sound.play(this.sound);
@@ -144,30 +145,28 @@ function callChange(clicked: string) {
      stats.begin(); // Begin measuring
      bowArrow.update();
       road.update();
-      hero.update(started, isClicked,bowArrow.y,bowArrow.height);
-     if(scoreboard.score>700 && level==2)
-      coin.update();
-     if (scoreboard.score > 1400 && level==3)
+      Arrow.update(started, isClicked,bowArrow.y,bowArrow.height);
+     if(scoreboard.score>700 && level==2)//when score > 700 add red balloons to the stage
+      Red.update();
+     if (scoreboard.score > 1400 && level==3)//when score > 1400  add bombs to the stage
          bomb.update();
-     if (scoreboard.lives == 0)
+     if (scoreboard.lives == 0)//If lives=0 then go to game over screen
          endScreen();
       
       random = Math.floor(Math.random() * 6 + 1);
       console.log("random is" + random); 
-   // coin.update();
-      if (scoreboard.lives == 0)
-          endScreen();
-      if (started == "true") {
-          for (var car = 0; car < 3; car++) {
+   // Red.update();
+      if (started == "true") {//add balloons to game only after the game starts
+          for (var balloon = 0; balloon < 3; balloon++) {
 
-              cars[car].update();
-              collision.check(cars[car]);
+              balloons[balloon].update();
+              collision.check(balloons[balloon]);
 
 
           }
       }
     if (started == "true")
-        collision.check(coin);
+        collision.check(Red);
    
     collision.check(bomb);
      if(started=="true")
@@ -229,30 +228,30 @@ function startButtonClicked()
     stage.removeAllChildren();
     road = new objects.road(assets.getResult("road"));
     stage.addChild(road);
-    stage.removeChild(coin);
-    hero = new objects.hero(assets.getResult("hero"));
-    hero.y = bowArrow.y + (bowArrow.height) / 2;
-    stage.addChild(hero);
+    stage.removeChild(Red);
+    Arrow = new objects.Arrow(assets.getResult("Arrow"));
+    Arrow.y = bowArrow.y + (bowArrow.height) / 2;
+    stage.addChild(Arrow);
 
-    //add coin object to stage
-  //  coin = new objects.coin(assets.getResult("coin"));
-  //  stage.addChild(coin);
+    //add Red object to stage
+  //  Red = new objects.Red(assets.getResult("Red"));
+  //  stage.addChild(Red);
   
    
-    // add hero object to stage
+    // add Arrow object to stage
     
     bowArrow = new objects.bowArrow(assets.getResult("bowArrow"));
     stage.addChild(bowArrow);
    
- //   hero = new objects.hero(assets.getResult("hero"));
-   // hero.y = bowArrow.y + (bowArrow.height) / 2;
-   // stage.addChild(hero);
+ //   Arrow = new objects.Arrow(assets.getResult("Arrow"));
+   // Arrow.y = bowArrow.y + (bowArrow.height) / 2;
+   // stage.addChild(Arrow);
 
 
-    // add 3 car objects to stage
-   for (var car = 0; car < 3; car++) {
-        cars[car] = new objects.car(assets.getResult("car"));
-        stage.addChild(cars[car]);
+    // add 3 balloon objects to stage
+   for (var balloon = 0; balloon < 3; balloon++) {
+        balloons[balloon] = new objects.balloon(assets.getResult("balloon"));
+        stage.addChild(balloons[balloon]);
     }
    
 
@@ -338,7 +337,7 @@ function endScreen()
     again.x = 150;
     again.y = 250;
     stage.addChild(again);
-    again.on("click", startScreen);
+    again.on("click", main)
     again.on("mouseover", againButtonOver);
     again.on("mouseout", againButtonOut);
     
@@ -361,17 +360,17 @@ function main() {
     stage.addChild(bowArrow);
    
       
-              coin = new objects.coin(assets.getResult("coin"));
-            stage.addChild(coin);
+              Red = new objects.Red(assets.getResult("Red"));
+            stage.addChild(Red);
 
-        // add hero object to stage
-        hero = new objects.hero(assets.getResult("hero"));
-        stage.addChild(hero);
+        // add Arrow object to stage
+        Arrow = new objects.Arrow(assets.getResult("Arrow"));
+        stage.addChild(Arrow);
    
-        // add 3 car objects to stage
+        // add 3 balloon objects to stage
         for (var i = 0; i < 3; i++) {
-            cars[i] = new objects.car(assets.getResult("car"));
-            stage.addChild(cars[i]);
+            balloons[i] = new objects.balloon(assets.getResult("balloon"));
+            stage.addChild(balloons[i]);
         }
        
         scoreboard = new objects.ScoreBoard();
@@ -384,45 +383,45 @@ function main() {
     
 
     
-}function secondLevel()
+}function secondLevel()//adds sceond level to the game
 {
     scoreboard.lives = 10;
-    stage.removeChild(hero);
+    stage.removeChild(Arrow);
     scoreboard.score += 200;
     level = 2;
     road.image = road2.image;
 
     for (var i = 0; i < 3; i++) {
         
-        stage.removeChild(cars[i]);
+        stage.removeChild(balloons[i]);
     } 
     //add island object to stage
-    coin = new objects.coin(assets.getResult("coin"));
-    stage.addChild(coin);
+    Red = new objects.Red(assets.getResult("Red"));
+    stage.addChild(Red);
 
     // add plane object to stage
-    hero = new objects.hero(assets.getResult("hero2"));
-    stage.addChild(hero);
+    Arrow = new objects.Arrow(assets.getResult("Arrow2"));
+    stage.addChild(Arrow);
 
     // add 3 cloud objects to stage
     for (var cloud = 0; cloud < 3; cloud++) {
-        cars[cloud] = new objects.car(assets.getResult("car"));
-        stage.addChild(cars[cloud]);
+        balloons[cloud] = new objects.balloon(assets.getResult("balloon"));
+        stage.addChild(balloons[cloud]);
     }
 
    
     console.log("Random is" + random);
   
-    // add 3 car objects to stage
+    // add 3 balloon objects to stage
    /* for (var i = 0; i < 3; i++) {
         random = Math.floor(Math.random() * 6 + 1);
         if (random > 3) {
-            coin = new objects.coin(assets.getResult("coin"));
-            stage.addChild(coin);
+            Red = new objects.Red(assets.getResult("Red"));
+            stage.addChild(Red);
         }
         if (random < 3) {
-            cars[i] = new objects.car(assets.getResult("car"));
-            stage.addChild(cars[i]);
+            balloons[i] = new objects.balloon(assets.getResult("balloon"));
+            stage.addChild(balloons[i]);
         }
         
        
@@ -434,9 +433,10 @@ function main() {
     } //add collision manager
        
 
-function thirdLevel() {
+function thirdLevel() {//add third level to the game
     scoreboard.lives = 10;
-    stage.removeChild(hero);
+    stage.removeChild(Red);
+    stage.removeChild(Arrow);
     road.image = road3.image;
     scoreboard.score += 300;
     resetArrow();
@@ -444,61 +444,29 @@ function thirdLevel() {
 
     for (var i = 0; i < 3; i++) {
 
-        stage.removeChild(cars[i]);
+        stage.removeChild(balloons[i]);
     }
   
     console.log("Random is" + random);
-    hero = new objects.hero(assets.getResult("hero3"));
-    stage.addChild(hero);
+    Arrow = new objects.Arrow(assets.getResult("Arrow3"));
+    stage.addChild(Arrow);
   //  scoreboard.score = 0;
     for (var cloud = 0; cloud < 3; cloud++) {
-        cars[cloud] = new objects.car(assets.getResult("car"));
-        stage.addChild(cars[cloud]);
+        balloons[cloud] = new objects.balloon(assets.getResult("balloon"));
+        stage.addChild(balloons[cloud]);
     }
-    coin = new objects.coin(assets.getResult("coin"));
-    stage.addChild(coin);
+    Red = new objects.Red(assets.getResult("Red"));
+    stage.addChild(Red);
     bomb = new objects.bomb(assets.getResult("bomb"));
     stage.addChild(bomb);
  
 
-    // add 3 car objects to stage
+    // add 3 balloon objects to stage
     
 
 
     }
 
-function gameEnd()
-{
-
-
-    stage.removeAllChildren();
-    road = new objects.road(assets.getResult("road"));
-    stage.addChild(road);
-    inst1 = new createjs.Text("Hurray!!You  Won...", "39px consolas", "#ffffff");
-    inst1.x = 150;
-    inst1.y = 60;
-    stage.addChild(inst1);
-    inst2 = new createjs.Text("FINAL SCORE:" + scoreboard.score, "39px consolas", "#ffffff");
-    inst2.x = 150;
-    inst2.y = 100;
-    stage.addChild(inst2);
-
-    again = new createjs.Bitmap(assets.getResult("again"));
-    again.x = 150;
-    again.y = 250;
-    stage.addChild(again);
-    again.on("click", startButtonClicked);
-    again.on("mouseover", againButtonOver);
-    again.on("mouseout", againButtonOut);
-    
-
-
-
-
-
-
-
-}
 
 
     
