@@ -20,6 +20,7 @@ var objects;
         car.prototype.checkBounds = function () {
             // check if cloud has left screen
             if (this.y > 600 + this.height) {
+                scoreboard.lives -= 1;
                 this.reset();
             }
         };

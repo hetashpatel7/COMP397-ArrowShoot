@@ -12,21 +12,19 @@ var objects;
         // CONSTRUCTOR ++++++++++++++++++++++++++++++++++
         function hero(imageString) {
             _super.call(this, imageString);
-            this.sound = "engine";
-            this.x = 100;
-            createjs.Sound.play(this.sound, { "loop": -1 });
+            this.x = 153;
         }
         hero.prototype.changeClick = function () {
             this.x += 500;
         };
         // PUBLIC METHODS +++++++++++++++++++++++++++++++
-        hero.prototype.update = function (started, isClicked) {
-            this.y = stage.mouseY; // position hero under mouse
+        hero.prototype.update = function (started, isClicked, bowY, bowHeight) {
+            this.y = stage.mouseY;
             if (started == "true") {
                 if (isClicked == "true") {
                     this.x += 10;
                     if (this.x > 1454) {
-                        this.x = 100;
+                        this.x = 153;
                         resetArrow();
                     }
                 }

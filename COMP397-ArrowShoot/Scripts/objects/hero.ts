@@ -8,12 +8,10 @@
          
         constructor(imageString: string) {
             super(imageString);
-            this.sound = "engine";
+            
+            this.x = 153;
 
-            this.x = 100;
-
-            createjs.Sound.play(this.sound, { "loop": -1 });
-        }
+            }
         public changeClick(): void {
 
             this.x += 500;
@@ -22,16 +20,16 @@
 
         }
         // PUBLIC METHODS +++++++++++++++++++++++++++++++
-        public update(started: string, isClicked: string): void {
+        public update(started: string, isClicked: string,bowY:number,bowHeight:number): void {
             
-                this.y = stage.mouseY; // position hero under mouse
+            this.y = stage.mouseY;
             
 
                 if (started == "true") {
                     if (isClicked == "true") {
                         this.x += 10;
                         if (this.x > 1454) {
-                            this.x = 100;
+                            this.x = 153;
                             resetArrow();
                             
                         }

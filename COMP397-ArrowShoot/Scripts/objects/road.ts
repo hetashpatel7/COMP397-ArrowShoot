@@ -19,12 +19,13 @@
         private checkBounds(): void {
 
             // check if road has left screen
-            if(this.x+500==0)
-            this.reset();
+            if (this.x+1200 == 0)
+                this.reset();
         }
 
 
         private reset(): void {
+            
             this.y = 0;
             this.x =0; // reset road off screen
         }

@@ -22,21 +22,29 @@
                 if (gameObject.isColliding == false) {
                     createjs.Sound.play(gameObject.sound);
                     if (gameObject.name == "car") {
+                       // stage.removeChild(gameObject);
                         stage.removeChild(gameObject);
+                        gameObject.y = -400;
+                        stage.addChild(gameObject);
+                        
                         scoreboard.score += 100;
-                        scoreboard.obj -= 1;
+                      //  scoreboard.obj -= 1;
                                                 stage.update();
                     }
                     if (gameObject.name == "coin")
                     {
-                        scoreboard.score -= 100;
+
                         stage.removeChild(gameObject);
+                        gameObject.y = -600;
+                        stage.addChild(gameObject);
+
+                        scoreboard.score -= 100;
+                       // stage.removeChild(gameObject);
                     //   resetArrow();
                         stage.update();
                     }
                     if (gameObject.name == "bomb") {
-                       // alert("bomb");
-                        endScreen();
+                                endScreen();
                      stage.update();
                     }
             
@@ -59,9 +67,9 @@
             }
             else {
                 gameObject.isColliding = false;
-                if (scoreboard.obj == 1) {
+        /*        if (scoreboard.obj == 1) {
                     stage.addChild(gameObject);
-                    scoreboard.obj += 1;
+                    scoreboard.obj += 1;*/
 
 
                 }
@@ -70,4 +78,3 @@
 
         }
     }
-}

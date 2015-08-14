@@ -5,6 +5,7 @@
 /// <reference path="typings/preloadjs/preloadjs.d.ts" />
 /// <reference path="utility/utility.ts" />
 /// <reference path="objects/bomb.ts" />
+/// <reference path="objects/bowarrow.ts" />
 /// <reference path="objects/gameobject.ts" />
 /// <reference path="objects/road.ts" />
 /// <reference path="objects/hero.ts" />
@@ -15,15 +16,20 @@
 /// <reference path="managers/collision.ts" />
 // Game Framework Variables
 var canvas = document.getElementById("canvas");
+var howToPlay;
 var stage;
 var stats;
 var logo;
 var assets;
+var bowArrow;
+var bow;
 var manifest = [
     { id: "road", src: "assets/images/road.png" },
-    { id: "road2", src: "assets/images/road2.jpg" },
+    { id: "road2", src: "assets/images/road2.png" },
     { id: "road3", src: "assets/images/road3.png" },
     { id: "logo", src: "assets/images/logo.png" },
+    { id: "bow", src: "assets/images/bow.png" },
+    { id: "howToPlay", src: "assets/images/howToPlay.png" },
     { id: "hero", src: "assets/images/hero.png" },
     { id: "hero2", src: "assets/images/hero2.png" },
     { id: "hero3", src: "assets/images/hero3.png" },
@@ -37,6 +43,7 @@ var manifest = [
     { id: "arrow", src: "assets/images/hero.png" },
     { id: "blasted", src: "assets/images/blasted.png" },
     { id: "bomb", src: "assets/images/bomb.png" },
+    { id: "bowArrow", src: "assets/images/bowArrow.png" },
     { id: "how", src: "assets/images/how.png" }
 ];
 // Game Variables
@@ -97,32 +104,40 @@ function callChange(clicked) {
     createjs.Sound.stop();
     this.sound = "engine";
     createjs.Sound.play(this.sound);
+    bowArrow.image = bow.image;
     this.sound = "yay";
     createjs.Sound.play(this.sound);
-    scoreboard.lives -= 1;
+    //  scoreboard.lives -= 1;
     isClicked = "true";
 }
 // Callback function that creates our Main Game Loop - refreshed 60 fps
 function gameLoop() {
     stats.begin(); // Begin measuring
+    bowArrow.update();
     road.update();
-    hero.update(started, isClicked);
+    hero.update(started, isClicked, bowArrow.y, bowArrow.height);
     if (scoreboard.score > 700 && level == 2)
         coin.update();
     if (scoreboard.score > 1400 && level == 3)
         bomb.update();
+    if (scoreboard.lives == 0)
+        endScreen();
     random = Math.floor(Math.random() * 6 + 1);
     console.log("random is" + random);
     // coin.update();
     if (scoreboard.lives == 0)
         endScreen();
-    for (var car = 0; car < 3; car++) {
-        cars[car].update();
-        collision.check(cars[car]);
+    if (started == "true") {
+        for (var car = 0; car < 3; car++) {
+            cars[car].update();
+            collision.check(cars[car]);
+        }
     }
-    collision.check(coin);
+    if (started == "true")
+        collision.check(coin);
     collision.check(bomb);
-    scoreboard.update();
+    if (started == "true")
+        scoreboard.update();
     stage.update();
     stats.end(); // end measuring
 }
@@ -163,12 +178,18 @@ function startButtonClicked() {
     road = new objects.road(assets.getResult("road"));
     stage.addChild(road);
     stage.removeChild(coin);
+    hero = new objects.hero(assets.getResult("hero"));
+    hero.y = bowArrow.y + (bowArrow.height) / 2;
+    stage.addChild(hero);
     //add coin object to stage
     //  coin = new objects.coin(assets.getResult("coin"));
     //  stage.addChild(coin);
     // add hero object to stage
-    hero = new objects.hero(assets.getResult("hero"));
-    stage.addChild(hero);
+    bowArrow = new objects.bowArrow(assets.getResult("bowArrow"));
+    stage.addChild(bowArrow);
+    //   hero = new objects.hero(assets.getResult("hero"));
+    // hero.y = bowArrow.y + (bowArrow.height) / 2;
+    // stage.addChild(hero);
     // add 3 car objects to stage
     for (var car = 0; car < 3; car++) {
         cars[car] = new objects.car(assets.getResult("car"));
@@ -191,17 +212,13 @@ function howButtonClicked() {
     stage.removeAllChildren();
     road = new objects.road(assets.getResult("road"));
     stage.addChild(road);
-    inst1 = new createjs.Text("Scroll Up and Down To Position the Arrow.", "35px consolas", "#ffffff");
-    inst1.x = 70;
-    inst1.y = 180;
-    stage.addChild(inst1);
-    inst2 = new createjs.Text("Press spacebar Key To Shoot The Arrow.Try To Avoid Bombs And Red Balloons.", "35px consolas", "#ffffff");
-    inst2.x = 70;
-    inst2.y = 250;
-    stage.addChild(inst2);
+    howToPlay = new createjs.Bitmap(assets.getResult("howToPlay"));
+    howToPlay.x = 0;
+    howToPlay.y = 25;
+    stage.addChild(howToPlay);
     start = new createjs.Bitmap(assets.getResult("start"));
-    start.x = 150;
-    start.y = 350;
+    start.x = 450;
+    start.y = 60;
     stage.addChild(start);
     start.on("click", startButtonClicked);
     start.on("mouseover", startButtonOver);
@@ -243,12 +260,16 @@ function main() {
     //add road object to stage
     road = new objects.road(assets.getResult("road"));
     stage.addChild(road);
+    bow = new objects.bowArrow(assets.getResult("bow"));
+    stage.addChild(bow);
     road2 = new objects.road(assets.getResult("road2"));
     stage.addChild(road2);
     road3 = new objects.road(assets.getResult("road3"));
     stage.addChild(road3);
     bomb = new objects.bomb(assets.getResult("bomb"));
     stage.addChild(bomb);
+    bowArrow = new objects.bowArrow(assets.getResult("bowArrow"));
+    stage.addChild(bowArrow);
     coin = new objects.coin(assets.getResult("coin"));
     stage.addChild(coin);
     // add hero object to stage
@@ -266,7 +287,6 @@ function main() {
     startScreen();
 }
 function secondLevel() {
-    alert("Congratulations!You just got 200 bonus points");
     scoreboard.lives = 10;
     stage.removeChild(hero);
     scoreboard.score += 200;
@@ -305,7 +325,6 @@ function secondLevel() {
      }*/
 } //add collision manager
 function thirdLevel() {
-    alert("Congratulations!You just got 300 bonus points");
     scoreboard.lives = 10;
     stage.removeChild(hero);
     road.image = road3.image;
