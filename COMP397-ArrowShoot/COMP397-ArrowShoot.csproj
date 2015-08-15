@@ -59,7 +59,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\audio\engine.wav" />
     <Content Include="assets\images\Arrow.png" />
     <Content Include="assets\images\Arrow2.png" />
     <Content Include="assets\images\Arrow3.png" />
@@ -92,7 +91,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\audio\thunder %281%29.wav" />
     <Content Include="assets\images\again.png" />
     <Content Include="assets\images\bow.png" />
     <Content Include="assets\images\how.png" />
